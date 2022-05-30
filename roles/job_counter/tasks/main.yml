@@ -1,0 +1,31 @@
+---
+# tasks file for job_counter
+   - name: getting todays date
+     set_fact:
+      todays_date: "{{ ansible_date_time.date }}"
+
+   - name: api counter call
+     uri:
+       url: https://controller.nostromo.co.za/api/v2/hosts/3/job_host_summaries/?job__job_template_id=20&created__regex={{ todays_date }}
+       user: "{{ myuser }}"
+       password: "{{ mypass }}"
+       force_basic_auth: true
+       method: "GET"
+       status_code: "200"
+       validate_certs: no
+     register: "job_details"  
+       
+   - name: counter value
+     set_fact:
+  #    counter: "{{ job_details | regex_findall('processed') | length }}"
+      counter: 5
+
+   - name: running complicance checks on host
+     include_role:
+       name: ../roles/compliance_check
+     when: counter|int == 3
+
+   - name: logging support ticket for escalation
+     include_role:
+      name: ../roles/raise_ticket
+     when: counter|int >= 4

@@ -1,0 +1,13 @@
+---
+# tasks file for raise_ticket
+    - name: Create incident
+      servicenow.itsm.incident:
+       instance:
+        host: https://{{ SN_INSTANCE }}.service-now.com/
+        username: "{{ SN_USERNAME }}"
+        password: "{{ SN_PASSWORD }}"
+
+       state: new
+       caller: admin
+       short_description: System Remediation limit hit. Severity High - Nuno Help us!
+       description: node01.nostromo.co.za is in a critical condition. Remediation attempts have hit 5 n/ {{ aide_results }}

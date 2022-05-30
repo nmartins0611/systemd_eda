@@ -1,0 +1,21 @@
+---
+# tasks file for rescue_accounts
+   - name: Retrieve user files
+     git:
+      repo: https://github.com/nmartins0611/system_resources
+      dest: /restore
+      clone: yes
+ 
+  #  - name: Restore desired user database files
+  #    copy: 
+  #     src:  /restore/passwd
+  #     dest: /etc/
+  #     owner: root
+  #     group: root
+  #     mode: 0644
+  #     remote_src: yes
+
+  #  - name: Cleanup 
+  #    file:
+  #      path: /restore
+  #      state: absent

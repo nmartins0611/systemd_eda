@@ -1,0 +1,5 @@
+---
+# defaults file for job_counter
+ myuser: admin
+ mypass: 0lexx611
+ todays_date: 0

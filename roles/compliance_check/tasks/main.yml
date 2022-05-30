@@ -1,0 +1,25 @@
+---
+# tasks file for compliance_check
+   - name: create aide report
+     command: aide --check
+     register: aide_results
+  #   failed_when: "aide_results.rc not [ 0 ]"
+     ignore_errors: true
+
+   - name: print
+     debug: 
+       msg: "{{ aide_results }}"
+
+   - name: confirm selinux
+     ansible.posix.selinux:
+       policy: targeted
+       state: enforcing
+
+   - name: Ensure core services are running
+     loop:
+        - httpd.service
+        - firewalld.service
+     systemd:
+       name: "{{ item }}"
+       state: started
+       enabled: true

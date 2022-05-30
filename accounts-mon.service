@@ -1,0 +1,9 @@
+[Unit]
+Description="Call back to Ansible Controller for Rescue"
+
+[Service]
+ExecStart=/bin/bash /opt/ansible/accounts-rescue.sh
+
+
+[Install]
+WantedBy=multi-user.target
